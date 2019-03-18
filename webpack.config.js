@@ -2,7 +2,7 @@
  * @Author: miky 
  * @Date: 2019-03-11 22:13:43 
  * @Last Modified by: miky
- * @Last Modified time: 2019-03-13 00:44:16
+ * @Last Modified time: 2019-03-18 23:27:42
  */
 
  const path = require('path');
@@ -11,7 +11,10 @@
  const HtmlWebpackPlugin = require('html-webpack-plugin')
 
  module.exports = {
-     entry: "./src/App.js",
+     entry: [
+        'react-hot-loader/patch',
+        "./src/App.js",
+     ],
      output: {
          path: path.resolve(__dirname, './dist'),
          filename: 'js/app.js'
@@ -20,7 +23,7 @@
          port: '8088',
         contentBase: './dist',
         open: true,
-        hot: true
+        hotOnly: true
      },
      module: {
          rules: [
@@ -74,6 +77,7 @@
              name: 'common',
              filename: 'js/base.js'
          }),
+         new webpack.optimize.ModuleConcatenationPlugin(),
          new webpack.HotModuleReplacementPlugin()
      ]
  }

@@ -2,25 +2,30 @@
  * @Author: miky 
  * @Date: 2019-03-11 22:15:07 
  * @Last Modified by: miky
- * @Last Modified time: 2019-03-13 00:45:42
+ * @Last Modified time: 2019-03-18 23:19:06
  */
 
 import React from 'react';
 import ReactDOM from 'react-dom';
 import 'font-awesome-webpack';
+import { AppContainer } from 'react-hot-loader';
+import Greeter from './Greeter';
 import './style.css';
 import './style.scss';
 
-ReactDOM.render(
-    <div>
-        <i className="fa fa-address-book" aria-hidden="true"></i>
-        <h1>Hello React</h1>
-    </div>,
-    document.getElementById('root')
-)
+const render = (App) => {
+    ReactDOM.render(
+        <AppContainer>
+            <App/ >    
+        </AppContainer>,
+        document.getElementById('root')
+    )
+}
 
-if(hot.module) {
-    module.hot.accept('App.js', () => {
-        console.log('Accepting the updated printMe module!')
+render(Greeter);
+
+if(module.hot) {
+    module.hot.accept('./Greeter', () => {
+        render(require('./Greeter').default)
     })
 }
